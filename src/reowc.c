@@ -23,5 +23,20 @@ int main(int argc, char *argv[]) {
     printf("%ld\t%s\n", file_size, argv[2]);
   }
 
+  // Return the number of lines
+  if (strcmp(argv[1], "-l") == 0) {
+    FILE *input_file = fopen(argv[2], "r");
+    int ch;
+    int line_count = 0;
+    while ((ch = fgetc(input_file)) != EOF) {
+      if (ch == '\n') {
+        line_count++;
+      }
+    }
+    fclose(input_file);
+
+    printf("%d\t%s", line_count, argv[2]);
+  }
+
   return 0;
 }
