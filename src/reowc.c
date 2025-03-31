@@ -12,8 +12,14 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
+  // Return the file size
   if (strcmp(argv[1], "-c") == 0) {
-    printf("%s\n", argv[2]);
+    FILE *input_file = fopen(argv[2], "rb");
+    fseek(input_file, 0, SEEK_END);
+    long file_size = ftell(input_file);
+    fclose(input_file);
+
+    printf("%ld\t%s\n", file_size, argv[2]);
   }
 
   return 0;
