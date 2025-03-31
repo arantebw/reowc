@@ -2,6 +2,7 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
+  // Checks the input arguments
   if (argc > 1 == 0) {
     printf("Error: Provide a target file and at least of the following "
            "options:\n");
