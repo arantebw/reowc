@@ -5,12 +5,11 @@
 int main(int argc, char *argv[]) {
   // Checks the input arguments
   if (argc > 1 == 0) {
-    printf("Error: Provide a target file and at least of the following "
-           "options:\n");
-    printf("-c  file size (bytes)\n");
-    printf("-l  number of lines\n\n");
-    printf("Help:\n");
-    printf("reowc [option] [target_file]\n");
+    printf("reowc [option] [target_file]\n\n");
+    printf("options:\n");
+    printf("\t-c  file size (bytes)\n");
+    printf("\t-l  number of lines\n");
+    printf("\t-w  number of words\n\n");
 
     return 1;
   }
