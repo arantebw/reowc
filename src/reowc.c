@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     }
     fclose(input_file);
 
-    printf("%d\t%s", line_count, argv[2]);
+    printf("%d\t%s\n", line_count, argv[2]);
   }
 
   return 0;
