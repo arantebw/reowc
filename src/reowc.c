@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -37,6 +38,31 @@ int main(int argc, char *argv[]) {
     fclose(input_file);
 
     printf("%d\t%s\n", line_count, argv[2]);
+  }
+
+  // Return the number of words
+  if (strcmp(argv[1], "-w") == 0) {
+    FILE *input_file = fopen(argv[2], "r"); // open a file stream
+
+    int c;
+    int count = 0;
+    int in_word = 0;
+
+    // Traverse each character
+    while ((c = fgetc(input_file)) != EOF) {
+      if (isspace(c)) {
+        if (in_word) { // a word is found
+          count++;
+          in_word = 0;
+        }
+      } else {
+        in_word = 1;
+      }
+    }
+
+    fclose(input_file); // close a file stream
+
+    printf("%d\t%s\n", count, argv[2]);
   }
 
   return 0;
