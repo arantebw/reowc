@@ -27,6 +27,30 @@ void get_lines_count(char *file) {
   printf("%d\t%s\n", count, file);
 }
 
+void get_words_count(char *file) {
+  FILE *input_file = fopen(file, "r"); // open a file stream
+
+  int c;
+  int count = 0;
+  int in_word = 0;
+
+  // Traverse each character
+  while ((c = fgetc(input_file)) != EOF) {
+    if (isspace(c)) {
+      if (in_word) { // a word is found
+        count++;
+        in_word = 0;
+      }
+    } else {
+      in_word = 1;
+    }
+  }
+
+  fclose(input_file); // close a file stream
+
+  printf("%d\t%s\n", count, file);
+}
+
 int main(int argc, char *argv[]) {
   // Checks the input arguments
   if (argc > 1 == 0) {
@@ -38,34 +62,14 @@ int main(int argc, char *argv[]) {
     printf("\t-w  number of words\n\n");
 
     return 1;
-  } else if (strcmp(argv[1], "-c") == 0) {
+  }
+
+  if (strcmp(argv[1], "-c") == 0) {
     get_file_size(argv[2]);
   } else if (strcmp(argv[1], "-l") == 0) {
     get_lines_count(argv[2]);
-  }
-  // Return the number of words
-  else if (strcmp(argv[1], "-w") == 0) {
-    FILE *input_file = fopen(argv[2], "r"); // open a file stream
-
-    int c;
-    int count = 0;
-    int in_word = 0;
-
-    // Traverse each character
-    while ((c = fgetc(input_file)) != EOF) {
-      if (isspace(c)) {
-        if (in_word) { // a word is found
-          count++;
-          in_word = 0;
-        }
-      } else {
-        in_word = 1;
-      }
-    }
-
-    fclose(input_file); // close a file stream
-
-    printf("%d\t%s\n", count, argv[2]);
+  } else if (strcmp(argv[1], "-w") == 0) {
+    get_words_count(argv[2]);
   }
   // Return the number of characters
   else if (strcmp(argv[1], "-m") == 0) {
