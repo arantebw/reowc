@@ -57,9 +57,9 @@ void get_characters_count(char *file) {
   FILE *input_file = fopen(file, "r");
 
   int c;
-  int count;
+  int count = 0;
   // Use `fgetwc` to read wide characters
-  while ((c = fgetwc(input_file) != WEOF)) {
+  while ((c = fgetwc(input_file)) != WEOF) {
     count++;
   }
 
