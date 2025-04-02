@@ -51,6 +51,23 @@ void get_words_count(char *file) {
   printf("%d\t%s\n", count, file);
 }
 
+void get_characters_count(char *file) {
+  setlocale(LC_ALL, ""); // set locale to default environment locale
+
+  FILE *input_file = fopen(file, "r");
+
+  int c;
+  int count;
+  // Use `fgetwc` to read wide characters
+  while ((c = fgetwc(input_file) != WEOF)) {
+    count++;
+  }
+
+  fclose(input_file);
+
+  printf("%d\t%s\n", count, file);
+}
+
 int main(int argc, char *argv[]) {
   // Checks the input arguments
   if (argc > 1 == 0) {
@@ -70,23 +87,8 @@ int main(int argc, char *argv[]) {
     get_lines_count(argv[2]);
   } else if (strcmp(argv[1], "-w") == 0) {
     get_words_count(argv[2]);
-  }
-  // Return the number of characters
-  else if (strcmp(argv[1], "-m") == 0) {
-    setlocale(LC_ALL, ""); // set locale to default environment locale
-
-    FILE *input_file = fopen(argv[2], "r");
-
-    int c;
-    int count;
-    // Use `fgetwc` to read wide characters
-    while ((c = fgetwc(input_file) != WEOF)) {
-      count++;
-    }
-
-    fclose(input_file);
-
-    printf("%d\t%s\n", count, argv[2]);
+  } else if (strcmp(argv[1], "-m") == 0) {
+    get_characters_count(argv[2]);
   } else {
     //
   }
