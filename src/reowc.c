@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]) {
   // Checks the input arguments
   if (argc > 1 == 0) {
-    printf("reowc [option] [target_file]\n\n");
+    printf("reowc [option] file\n\n");
     printf("options:\n");
     printf("\t-c  file size (bytes)\n");
     printf("\t-l  number of lines\n");
@@ -16,9 +16,8 @@ int main(int argc, char *argv[]) {
 
     return 1;
   }
-
   // Return the file size
-  if (strcmp(argv[1], "-c") == 0) {
+  else if (strcmp(argv[1], "-c") == 0) {
     FILE *input_file = fopen(argv[2], "rb");
     fseek(input_file, 0, SEEK_END);
     long file_size = ftell(input_file);
@@ -26,9 +25,8 @@ int main(int argc, char *argv[]) {
 
     printf("%ld\t%s\n", file_size, argv[2]);
   }
-
   // Return the number of lines
-  if (strcmp(argv[1], "-l") == 0) {
+  else if (strcmp(argv[1], "-l") == 0) {
     FILE *input_file = fopen(argv[2], "r");
     int ch;
     int line_count = 0;
@@ -41,9 +39,8 @@ int main(int argc, char *argv[]) {
 
     printf("%d\t%s\n", line_count, argv[2]);
   }
-
   // Return the number of words
-  if (strcmp(argv[1], "-w") == 0) {
+  else if (strcmp(argv[1], "-w") == 0) {
     FILE *input_file = fopen(argv[2], "r"); // open a file stream
 
     int c;
@@ -66,9 +63,8 @@ int main(int argc, char *argv[]) {
 
     printf("%d\t%s\n", count, argv[2]);
   }
-
   // Return the number of characters
-  if (strcmp(argv[1], "-m") == 0) {
+  else if (strcmp(argv[1], "-m") == 0) {
     setlocale(LC_ALL, ""); // set locale to default environment locale
 
     FILE *input_file = fopen(argv[2], "r");
@@ -83,6 +79,10 @@ int main(int argc, char *argv[]) {
     fclose(input_file);
 
     printf("%d\t%s\n", count, argv[2]);
+  }
+  else {
+    FILE *input_file = fopen(argv[1], "r");
+    fclose(input_file);
   }
 
   return 0;
