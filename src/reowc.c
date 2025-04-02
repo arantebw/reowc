@@ -4,6 +4,15 @@
 #include <string.h>
 #include <wchar.h>
 
+void get_file_size(char *file) {
+  FILE *input_file = fopen(file, "rb");
+  fseek(input_file, 0, SEEK_END);
+  long file_size = ftell(input_file);
+  fclose(input_file);
+
+  printf("%ld\t%s\n", file_size, file);
+}
+
 int main(int argc, char *argv[]) {
   // Checks the input arguments
   if (argc > 1 == 0) {
@@ -15,15 +24,8 @@ int main(int argc, char *argv[]) {
     printf("\t-w  number of words\n\n");
 
     return 1;
-  }
-  // Return the file size
-  else if (strcmp(argv[1], "-c") == 0) {
-    FILE *input_file = fopen(argv[2], "rb");
-    fseek(input_file, 0, SEEK_END);
-    long file_size = ftell(input_file);
-    fclose(input_file);
-
-    printf("%ld\t%s\n", file_size, argv[2]);
+  } else if (strcmp(argv[1], "-c") == 0) {
+    get_file_size(argv[2]);
   }
   // Return the number of lines
   else if (strcmp(argv[1], "-l") == 0) {
@@ -79,10 +81,8 @@ int main(int argc, char *argv[]) {
     fclose(input_file);
 
     printf("%d\t%s\n", count, argv[2]);
-  }
-  else {
-    FILE *input_file = fopen(argv[1], "r");
-    fclose(input_file);
+  } else {
+    //
   }
 
   return 0;
