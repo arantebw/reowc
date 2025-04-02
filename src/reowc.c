@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
     printf("options:\n");
     printf("\t-c  file size (bytes)\n");
     printf("\t-l  number of lines\n");
+    printf("\t-m  number of characters\n");
     printf("\t-w  number of words\n\n");
 
     return 1;
