@@ -4,13 +4,13 @@
 #include <string.h>
 #include <wchar.h>
 
-void get_file_size(char *file) {
+long get_file_size(char *file) {
   FILE *input_file = fopen(file, "rb");
   fseek(input_file, 0, SEEK_END);
   long file_size = ftell(input_file);
   fclose(input_file);
 
-  printf("%ld\t%s\n", file_size, file);
+  return file_size;
 }
 
 void get_lines_count(char *file) {
@@ -82,7 +82,8 @@ int main(int argc, char *argv[]) {
   }
 
   if (strcmp(argv[1], "-c") == 0) {
-    get_file_size(argv[2]);
+    long file_size = get_file_size(argv[2]);
+    printf("%ld\t%s\n", file_size, argv[2]);
   } else if (strcmp(argv[1], "-l") == 0) {
     get_lines_count(argv[2]);
   } else if (strcmp(argv[1], "-w") == 0) {
