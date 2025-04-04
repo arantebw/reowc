@@ -70,7 +70,7 @@ void get_characters_count(char *file) {
 
 int main(int argc, char *argv[]) {
   // Checks the input arguments
-  if (argc > 1 == 0) {
+  if (argc == 1) {
     printf("reowc [option] file\n\n");
     printf("options:\n");
     printf("\t-c  file size (bytes)\n");
