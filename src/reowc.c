@@ -13,7 +13,7 @@ long get_file_size(char *file) {
   return file_size;
 }
 
-void get_lines_count(char *file) {
+int get_lines_count(char *file) {
   FILE *input_file = fopen(file, "r");
   int c;
   int count = 0;
@@ -24,10 +24,10 @@ void get_lines_count(char *file) {
   }
   fclose(input_file);
 
-  printf("%d\t%s\n", count, file);
+  return count;
 }
 
-void get_words_count(char *file) {
+int get_words_count(char *file) {
   FILE *input_file = fopen(file, "r"); // open a file stream
 
   int c;
@@ -48,7 +48,7 @@ void get_words_count(char *file) {
 
   fclose(input_file); // close a file stream
 
-  printf("%d\t%s\n", count, file);
+  return count;
 }
 
 void get_characters_count(char *file) {
@@ -85,13 +85,18 @@ int main(int argc, char *argv[]) {
     long file_size = get_file_size(argv[2]);
     printf("%ld\t%s\n", file_size, argv[2]);
   } else if (strcmp(argv[1], "-l") == 0) {
-    get_lines_count(argv[2]);
+    int lines_count = get_lines_count(argv[2]);
+    printf("%d\t%s\n", lines_count, argv[2]);
   } else if (strcmp(argv[1], "-w") == 0) {
-    get_words_count(argv[2]);
+    int words_count = get_words_count(argv[2]);
+    printf("%d\t%s\n", words_count, argv[2]);
   } else if (strcmp(argv[1], "-m") == 0) {
     get_characters_count(argv[2]);
   } else {
-    //
+    int lines_count = get_lines_count(argv[1]);
+    int words_count = get_words_count(argv[1]);
+    long file_size = get_file_size(argv[1]);
+    printf("%d\t%d\t%ld\t%s\n", lines_count, words_count, file_size, argv[1]);
   }
 
   return 0;
