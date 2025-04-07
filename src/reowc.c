@@ -60,30 +60,49 @@ int get_lines_count(char *file)
 
 int get_words_count(char *file)
 {
-        FILE *input_file = fopen(file, "r"); // open a file stream
-
         int c;
         int count = 0;
         int in_word = 0;
 
-        // Traverse each character
-        while ((c = fgetc(input_file)) != EOF)
+        if (file != NULL)
         {
-                if (isspace(c))
+                FILE *input_file = fopen(file, "r");
+                // Traverse each character
+                while ((c = fgetc(input_file)) != EOF)
                 {
-                        if (in_word)
-                        { // a word is found
-                                count++;
-                                in_word = 0;
+                        if (isspace(c))
+                        {
+                                if (in_word)
+                                { // a word is found
+                                        count++;
+                                        in_word = 0;
+                                }
+                        }
+                        else
+                        {
+                                in_word = 1;
                         }
                 }
-                else
+                fclose(input_file); // close a file stream
+        }
+        else
+        {
+                while ((c = fgetc(stdin)) != EOF)
                 {
-                        in_word = 1;
+                        if (isspace(c))
+                        {
+                                if (in_word)
+                                { // a word is found
+                                        count++;
+                                        in_word = 0;
+                                }
+                        }
+                        else
+                        {
+                                in_word = 1;
+                        }
                 }
         }
-
-        fclose(input_file); // close a file stream
 
         return count;
 }
@@ -149,7 +168,12 @@ int main(int argc, char *argv[])
         else if (strcmp(argv[1], "-w") == 0)
         {
                 int words_count = get_words_count(argv[2]);
-                printf("%d\t%s\n", words_count, argv[2]);
+                if (argv[2] != NULL) {
+                        printf("%d\t%s\n", words_count, argv[2]);
+                }
+                else {
+                        printf("%d\n", words_count);
+                }
         }
         else if (strcmp(argv[1], "-m") == 0)
         {
