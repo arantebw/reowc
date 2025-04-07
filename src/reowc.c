@@ -29,17 +29,31 @@ long get_file_size(char *file)
 
 int get_lines_count(char *file)
 {
-        FILE *input_file = fopen(file, "r");
         int c;
         int count = 0;
-        while ((c = fgetc(input_file)) != EOF)
+
+        if (file != NULL)
         {
-                if (c == '\n')
+                FILE *input_file = fopen(file, "r");
+                while ((c = fgetc(input_file)) != EOF)
                 {
-                        count++;
+                        if (c == '\n')
+                        {
+                                count++;
+                        }
+                }
+                fclose(input_file);
+        }
+        else
+        {
+                while ((c = fgetc(stdin)) != EOF)
+                {
+                        if (c == '\n')
+                        {
+                                count++;
+                        }
                 }
         }
-        fclose(input_file);
 
         return count;
 }
@@ -123,7 +137,14 @@ int main(int argc, char *argv[])
         else if (strcmp(argv[1], "-l") == 0)
         {
                 int lines_count = get_lines_count(argv[2]);
-                printf("%d\t%s\n", lines_count, argv[2]);
+                if (argv[2] != NULL)
+                {
+                        printf("%d\t%s\n", lines_count, argv[2]);
+                }
+                else
+                {
+                        printf("%d\n", lines_count);
+                }
         }
         else if (strcmp(argv[1], "-w") == 0)
         {
