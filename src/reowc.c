@@ -4,113 +4,144 @@
 #include <string.h>
 #include <wchar.h>
 
-long get_file_size(char *file) {
-  long file_size = 0;
+long get_file_size(char *file)
+{
+        long file_size = 0;
 
-  if (file != NULL) {
-    FILE *input_file = fopen(file, "rb");
-    fseek(input_file, 0, SEEK_END);
-    file_size = ftell(input_file);
-    fclose(input_file);
-  } else {
-    int ch;
-    while ((ch = fgetc(stdin)) != EOF) {
-      file_size++;
-    }
-  }
+        if (file != NULL)
+        {
+                FILE *input_file = fopen(file, "rb");
+                fseek(input_file, 0, SEEK_END);
+                file_size = ftell(input_file);
+                fclose(input_file);
+        }
+        else
+        {
+                int ch;
+                while ((ch = fgetc(stdin)) != EOF)
+                {
+                        file_size++;
+                }
+        }
 
-  return file_size;
+        return file_size;
 }
 
-int get_lines_count(char *file) {
-  FILE *input_file = fopen(file, "r");
-  int c;
-  int count = 0;
-  while ((c = fgetc(input_file)) != EOF) {
-    if (c == '\n') {
-      count++;
-    }
-  }
-  fclose(input_file);
+int get_lines_count(char *file)
+{
+        FILE *input_file = fopen(file, "r");
+        int c;
+        int count = 0;
+        while ((c = fgetc(input_file)) != EOF)
+        {
+                if (c == '\n')
+                {
+                        count++;
+                }
+        }
+        fclose(input_file);
 
-  return count;
+        return count;
 }
 
-int get_words_count(char *file) {
-  FILE *input_file = fopen(file, "r"); // open a file stream
+int get_words_count(char *file)
+{
+        FILE *input_file = fopen(file, "r"); // open a file stream
 
-  int c;
-  int count = 0;
-  int in_word = 0;
+        int c;
+        int count = 0;
+        int in_word = 0;
 
-  // Traverse each character
-  while ((c = fgetc(input_file)) != EOF) {
-    if (isspace(c)) {
-      if (in_word) { // a word is found
-        count++;
-        in_word = 0;
-      }
-    } else {
-      in_word = 1;
-    }
-  }
+        // Traverse each character
+        while ((c = fgetc(input_file)) != EOF)
+        {
+                if (isspace(c))
+                {
+                        if (in_word)
+                        { // a word is found
+                                count++;
+                                in_word = 0;
+                        }
+                }
+                else
+                {
+                        in_word = 1;
+                }
+        }
 
-  fclose(input_file); // close a file stream
+        fclose(input_file); // close a file stream
 
-  return count;
+        return count;
 }
 
-void get_characters_count(char *file) {
-  setlocale(LC_ALL, ""); // set locale to default environment locale
+void get_characters_count(char *file)
+{
+        setlocale(LC_ALL, ""); // set locale to default environment locale
 
-  FILE *input_file = fopen(file, "r");
+        FILE *input_file = fopen(file, "r");
 
-  int c;
-  int count = 0;
-  // Use `fgetwc` to read wide characters
-  while ((c = fgetwc(input_file)) != WEOF) {
-    count++;
-  }
+        int c;
+        int count = 0;
+        // Use `fgetwc` to read wide characters
+        while ((c = fgetwc(input_file)) != WEOF)
+        {
+                count++;
+        }
 
-  fclose(input_file);
+        fclose(input_file);
 
-  printf("%d\t%s\n", count, file);
+        printf("%d\t%s\n", count, file);
 }
 
-int main(int argc, char *argv[]) {
-  // Checks the input arguments
-  if (argc == 1) {
-    printf("reowc [option] file\n\n");
-    printf("options:\n");
-    printf("\t-c  file size (bytes)\n");
-    printf("\t-l  number of lines\n");
-    printf("\t-m  number of characters\n");
-    printf("\t-w  number of words\n\n");
+int main(int argc, char *argv[])
+{
+        // Checks the input arguments
+        if (argc == 1)
+        {
+                printf("reowc [option] file\n\n");
+                printf("options:\n");
+                printf("\t-c  file size (bytes)\n");
+                printf("\t-l  number of lines\n");
+                printf("\t-m  number of characters\n");
+                printf("\t-w  number of words\n\n");
 
-    return 1;
-  }
+                return 1;
+        }
 
-  if (strcmp(argv[1], "-c") == 0) {
-    long file_size = get_file_size(argv[2]);
-    if (argv[2] != NULL) {
-      printf("%ld\t%s\n", file_size, argv[2]);
-    } else {
-      printf("%ld\n", file_size);
-    }
-  } else if (strcmp(argv[1], "-l") == 0) {
-    int lines_count = get_lines_count(argv[2]);
-    printf("%d\t%s\n", lines_count, argv[2]);
-  } else if (strcmp(argv[1], "-w") == 0) {
-    int words_count = get_words_count(argv[2]);
-    printf("%d\t%s\n", words_count, argv[2]);
-  } else if (strcmp(argv[1], "-m") == 0) {
-    get_characters_count(argv[2]);
-  } else {
-    int lines_count = get_lines_count(argv[1]);
-    int words_count = get_words_count(argv[1]);
-    long file_size = get_file_size(argv[1]);
-    printf("%d\t%d\t%ld\t%s\n", lines_count, words_count, file_size, argv[1]);
-  }
+        if (strcmp(argv[1], "-c") == 0)
+        {
+                long file_size = get_file_size(argv[2]);
+                if (argv[2] != NULL)
+                {
+                        printf("%ld\t%s\n", file_size, argv[2]);
+                }
+                else
+                {
+                        printf("%ld\n", file_size);
+                }
+        }
+        else if (strcmp(argv[1], "-l") == 0)
+        {
+                int lines_count = get_lines_count(argv[2]);
+                printf("%d\t%s\n", lines_count, argv[2]);
+        }
+        else if (strcmp(argv[1], "-w") == 0)
+        {
+                int words_count = get_words_count(argv[2]);
+                printf("%d\t%s\n", words_count, argv[2]);
+        }
+        else if (strcmp(argv[1], "-m") == 0)
+        {
+                get_characters_count(argv[2]);
+        }
+        else
+        {
+                int lines_count = get_lines_count(argv[1]);
+                int words_count = get_words_count(argv[1]);
+                long file_size = get_file_size(argv[1]);
+                printf("%d\t%d\t%ld\t%s\n", lines_count, words_count, file_size,
+                       argv[1]);
+        }
 
-  return 0;
+        return 0;
 }
