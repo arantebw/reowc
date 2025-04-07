@@ -5,10 +5,19 @@
 #include <wchar.h>
 
 long get_file_size(char *file) {
-  FILE *input_file = fopen(file, "rb");
-  fseek(input_file, 0, SEEK_END);
-  long file_size = ftell(input_file);
-  fclose(input_file);
+  long file_size = 0;
+
+  if (file != NULL) {
+    FILE *input_file = fopen(file, "rb");
+    fseek(input_file, 0, SEEK_END);
+    file_size = ftell(input_file);
+    fclose(input_file);
+  } else {
+    int ch;
+    while ((ch = fgetc(stdin)) != EOF) {
+      file_size++;
+    }
+  }
 
   return file_size;
 }
@@ -83,7 +92,11 @@ int main(int argc, char *argv[]) {
 
   if (strcmp(argv[1], "-c") == 0) {
     long file_size = get_file_size(argv[2]);
-    printf("%ld\t%s\n", file_size, argv[2]);
+    if (argv[2] != NULL) {
+      printf("%ld\t%s\n", file_size, argv[2]);
+    } else {
+      printf("%ld\n", file_size);
+    }
   } else if (strcmp(argv[1], "-l") == 0) {
     int lines_count = get_lines_count(argv[2]);
     printf("%d\t%s\n", lines_count, argv[2]);
