@@ -1,0 +1,7 @@
+---
+BasedOnStyle: LLVM        # Can be LLVM, Google, Mozilla, WebKit, etc.
+IndentWidth: 8            # Number of spaces per indentation level
+TabWidth: 8               # Width of tab character
+UseTab: Never             # Options: Never, ForIndentation, Always
+BreakBeforeBraces: Allman # Optional: brace style
+---
