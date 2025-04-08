@@ -80,21 +80,29 @@ int get_words_count(char *file) {
   return count;
 }
 
-void get_characters_count(char *file) {
+int get_characters_count(char *file) {
   setlocale(LC_ALL, ""); // set locale to default environment locale
-
-  FILE *input_file = fopen(file, "r");
 
   int c;
   int count = 0;
-  // Use `fgetwc` to read wide characters
-  while ((c = fgetwc(input_file)) != WEOF) {
-    count++;
+
+  if (file != NULL) {
+    FILE *input_file = fopen(file, "r");
+
+    // Use `fgetwc` to read wide characters
+    while ((c = fgetwc(input_file)) != WEOF) {
+      count++;
+    }
+
+    fclose(input_file);
+  } else {
+    // Use `fgetwc` to read wide characters
+    while ((c = fgetwc(stdin)) != WEOF) {
+      count++;
+    }
   }
 
-  fclose(input_file);
-
-  printf("%d\t%s\n", count, file);
+  return count;
 }
 
 int main(int argc, char *argv[]) {
