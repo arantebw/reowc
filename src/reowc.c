@@ -140,7 +140,12 @@ int main(int argc, char *argv[]) {
       printf("%d\n", words_count);
     }
   } else if (strcmp(argv[1], "-m") == 0) {
-    get_characters_count(argv[2]);
+    int char_count = get_characters_count(argv[2]);
+    if (argv[2] != NULL) {
+      printf("%d\t%s\n", char_count, argv[2]);
+    } else {
+      printf("%d\n", char_count);
+    }
   } else {
     int lines_count = get_lines_count(argv[1]);
     int words_count = get_words_count(argv[1]);
