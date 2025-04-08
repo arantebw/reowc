@@ -18,4 +18,3 @@ long get_file_size(char *file) {
 
   return file_size;
 }
-

@@ -1,10 +1,9 @@
+#include "get_file_size.h"
 #include <ctype.h>
 #include <locale.h>
 #include <stdio.h>
 #include <string.h>
 #include <wchar.h>
-
-#include "get_file_size.h"
 
 int get_lines_count(char *file) {
   int c;
