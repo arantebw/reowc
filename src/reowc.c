@@ -6,8 +6,7 @@
 #include <string.h>
 #include <wchar.h>
 
-int main(int argc, char *argv[]) {
-  // Checks the input arguments
+int check_args(int argc) {
   if (argc == 1) {
     printf("reowc [option] file\n\n");
     printf("options:\n");
@@ -16,6 +15,14 @@ int main(int argc, char *argv[]) {
     printf("\t-m  number of characters\n");
     printf("\t-w  number of words\n\n");
 
+    return 1;
+  }
+
+  return 0;
+}
+
+int main(int argc, char *argv[]) {
+  if (check_args(argc)) {
     return 1;
   }
 
